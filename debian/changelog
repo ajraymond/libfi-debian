@@ -1,0 +1,5 @@
+libfi (1.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #xyz)
+
+ -- Alexandre Raymond <alexandre.j.raymond@gmail.com>  Fri, 28 Jun 2013 23:20:59 -0400

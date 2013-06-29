@@ -1,0 +1,6 @@
+include/fi/*.hpp                     usr/include/fi
+include/fi/private/*.hpp             usr/include/fi/private
+include/fi/rounding/*.hpp            usr/include/fi/rounding
+include/fi/overflow/*.hpp            usr/include/fi/overflow
+include/fi/private/rounding/*.hpp    usr/include/fi/private/rounding
+include/fi/private/overflow/*.hpp    usr/include/fi/private/overflow

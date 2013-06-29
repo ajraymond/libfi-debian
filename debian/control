@@ -1,0 +1,35 @@
+Source: libfi
+Priority: extra
+Section: libdevel
+Maintainer: Alexandre Raymond <alexandre.j.raymond@gmail.com>
+Homepage: https://github.com/gsarkis/libfi
+Vcs-Git: git://github.com/ajraymond/libfi-debian.git
+Vcs-Browser: https://github.com/ajraymond/libfi-debian
+Build-Depends: debhelper (>= 8.0.0), doxygen, dpkg-dev (>= 1.16.1~), graphviz
+Standards-Version: 3.9.4
+
+Package: libfi-dev
+Architecture: all
+Depends: ${misc:Depends}
+Description: C++ fixed-point arithmetic library
+ Libfi is a header-only C++ library allowing application developers
+ to easily make use of fixed-point arithmetic in their applications.
+ This library overrides many common C++ operators for
+ plug-and-play operation.
+ .
+ The behavior of this library with respect to saturation and 
+ overflow is fully parameterizable at compile time.
+ .
+ This library consists only of header files to be included in the
+ target applications; it is not pre-compiled nor dynamically
+ linked.
+
+Package: libfi-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Documentation for the libfi C++ fixed point library
+ Libfi is a header-only fixed-point arithmetic library for C++.
+ .
+ This package contains  documentation for the library in HTML format,
+ automatically generated using Doxygen.
