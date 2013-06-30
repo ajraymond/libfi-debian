@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script v1.1
+# Script v1.2
 
 # Usage: ./package.sh [debuild options]
 
@@ -64,25 +64,20 @@ fi
 
 rm -rf tmpbuild/
 
-mkdir tmpbuild || {
+mkdir -p tmpbuild/${PROJ_NAME}-${PROJ_VERSION} || {
     echo "ERROR: could not create tmpbuild directory"
     exit 1
 }
 
-cp ${PROJ_NAME}_${PROJ_VERSION}.orig.tar.gz tmpbuild/ || {
-    echo "ERROR: could not move tarball archive to build directory"
-    exit 1
-}
-
 cd tmpbuild/
-tar -xvzf ${PROJ_NAME}_${PROJ_VERSION}.orig.tar.gz || {
-    echo "ERROR: could not extract archive for build"
+
+cp ../${PROJ_NAME}_${PROJ_VERSION}.orig.tar.gz ./ || {
+    echo "ERROR: could not copy tarball archive to build directory"
     exit 1
 }
 
-
-[ -d ${PROJ_NAME}-${PROJ_VERSION}/ ] || {
-    echo "ERROR: project directory not found"
+tar -vzx --strip-components=1 -f ${PROJ_NAME}_${PROJ_VERSION}.orig.tar.gz --directory ${PROJ_NAME}-${PROJ_VERSION}/ || {
+    echo "ERROR: could not extract archive for build"
     exit 1
 }
 
@@ -90,6 +85,8 @@ cp -r ../debian ${PROJ_NAME}-${PROJ_VERSION}/ || {
     echo "ERROR: could not copy debian directory for build"
     exit 1
 }
+
+cd ${PROJ_NAME}-${PROJ_VERSION}/
 
 
 if [ "${SIGN}" = n ]; then
@@ -104,8 +101,6 @@ if [ "${MODE}" = pbuilder ]; then
 else
     BUILDTYPEOPT=""
 fi
-
-cd ${PROJ_NAME}-${PROJ_VERSION}/
 
 #lintian complains because of some confusion between ubuntu/debian
 #debuild ${BUILDTYPEOPT} ${SIGNOPT} "$@" --lintian-opts --pedantic -i -I --show-overrides || {
@@ -138,7 +133,7 @@ if [ "${MODE}" = pbuilder ]; then
         echo "ERROR: pbuilder-dist update"
         exit 1
     }
-    pbuilder-dist sid i386 build ../${PROJ_NAME}_${PROJ_VERSION}-*.dsc --auto-debsign || {
+    pbuilder-dist sid i386 build ../${PROJ_NAME}_${PROJ_VERSION}-*.dsc || {
         echo "ERROR: pbuilder-dist build"
         exit 1
     }
